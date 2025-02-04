@@ -1,4 +1,4 @@
-from deck import Deck
+from models.deck import Deck
 
 class Distributor:
     """Handles the distribution of cards to players."""

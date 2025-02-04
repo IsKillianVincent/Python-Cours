@@ -1,5 +1,5 @@
 import random
-from card import Card
+from models.card import Card
 
 class Deck:
     """Représente un paquet de 52 cartes."""

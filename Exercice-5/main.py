@@ -1,5 +1,5 @@
-from deck import Deck
-from distribution import Distributor
+from models.deck import Deck
+from models.distribution import Distributor
 
 def print_section_title(title: str):
     """
