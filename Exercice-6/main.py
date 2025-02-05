@@ -13,7 +13,6 @@ def main():
         print_section_title("Test sans pytest de la classe deck")
         run_tests_without_pytest()
     except Exception as e:
-        # Affiche un message d'erreur en cas d'exception
         print(f"Une erreur est survenue : {e}")
 
 if __name__ == "__main__":
