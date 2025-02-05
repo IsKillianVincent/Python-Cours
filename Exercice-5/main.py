@@ -1,5 +1,6 @@
 from models.deck import Deck
 from models.distribution import Distributor
+from models.card import Card
 
 def print_section_title(title: str):
     """
@@ -8,43 +9,41 @@ def print_section_title(title: str):
     print(f"\n{'-' * 20} {title} {'-' * 20}\n")
 
 def main():
+    """ 
+    Programme principal : Création, mélange et distribution des cartes.
+    """
     try:
-        # Créer un paquet de cartes
-        print_section_title("Question 1 : Créer un paquet de cartes")
+        print_section_title("Création du paquet de cartes")
         deck = Deck()
         
-        # Melanger le paquet
-        print_section_title("Question 2 : Melanger le paquet")
+        print_section_title("Mélange du paquet")
         deck.shuffle()
 
-        # Demander le nombre de joueurs
-        num_players = int(input("Combien de joueurs participent au jeu ? "))
+        while True:
+            try:
+                num_players = int(input("Combien de joueurs participent au jeu ? "))
+                if num_players < 1:
+                    raise ValueError("Le nombre de joueurs doit être supérieur à 0.")
+                break
+            except ValueError:
+                print("Veuillez entrer un nombre entier valide.")
 
-        if num_players < 1:
-            raise ValueError("Le nombre de joueurs doit être supérieur à 0.")
-
-        # Créer une instance du distributeur
-        print_section_title("Question 3 : Distribuer les cartes")
+        print_section_title("Distribution des cartes")
         distributor = Distributor(deck)
-
-        # Distribuer les cartes
         players = distributor.distribute(num_players)
 
-        # Afficher les cartes de chaque joueur
         for player, cards in players.items():
-            print(f"{player} a les cart suivantes:")
-            for card in cards:
+            print(f"{player} a les cartes suivantes (triées) :")
+            sorted_cards = sorted(cards, key=lambda c: (Card.values.index(c.value), c.suit))
+            for card in sorted_cards:
                 print(f"  - {card}")
             print()
 
     except ValueError as e:
         print(f"Erreur de valeur : {e}")
-    except TypeError as e:
-        print(f"Erreur de type : {e}")
-    except IndexError as e:
-        print(f"Erreur d'index : {e}")
     except Exception as e:
         print(f"Une erreur inattendue est survenue : {e}")
+
 
 if __name__ == "__main__":
     main()
